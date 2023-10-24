@@ -308,7 +308,7 @@ Transform:
   m_GameObject: {fileID: 919132148433267605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
   - {fileID: 3748359891760748048}
   - {fileID: 4042940087891312388}
@@ -342,6 +342,8 @@ GameObject:
   - component: {fileID: 543450652172480815}
   - component: {fileID: 5866666020483902293}
   - component: {fileID: 919132148433267606}
+  - component: {fileID: 919132148433267607}
+  - component: {fileID: 919132148433267609}
   m_Layer: 0
   m_Name: Sparrow_Animations
   m_TagString: Untagged
@@ -363,6 +365,36 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!54 &919132148433267607
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148433267605}
+  serializedVersion: 2
+  m_Mass: 0.3
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 88
+  m_CollisionDetection: 0
+--- !u!114 &919132148433267609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148433267605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5247aba53eb53514d84ca3c41e437c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 250
+  JumpForce: 120
 --- !u!1 &945614498197938190
 GameObject:
   m_ObjectHideFlags: 0
