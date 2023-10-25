@@ -6,6 +6,7 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager instance = null;
 
     private void Awake()
@@ -21,15 +22,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private TestUI_Donggil testui;
+    private void Start()
+    {
+        testui = FindObjectOfType<TestUI_Donggil>();
+    }
+
     private void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SaveScore();
+        }
 
-        SaveScore();
-
-
-
-        LoadScore();
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            LoadScore();
+        }
 
 
     }
@@ -39,49 +49,51 @@ public class GameManager : MonoBehaviour
     public void Score(int s)
     {
         current_score += s;
-        TestUI_Donggil.instance.UpdateScore();
+        testui.UpdateScore();
     }
 
 
-    int index = 0;
     public void SaveScore()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            string filename = "Score" + index + ".json";
-            filename = Path.Combine("TestJson/", filename);
-            string toJson = JsonConvert.SerializeObject(new JsonTest(current_score, "AAA"), Formatting.Indented);
-            
-            File.WriteAllText(filename, toJson);
-            Debug.Log("Save " + filename);
-            index++;
-        }
+        int filecount = Directory.GetFiles("TestJson/", "*.json").Length;
+        string filename = "Score" + filecount + ".json";
+        filename = Path.Combine("TestJson/", filename);
+        string toJson = JsonConvert.SerializeObject(new JsonTest(current_score, "AAA"), Formatting.Indented);
+
+        File.WriteAllText(filename, toJson);
+        Debug.Log("Save " + filename);
     }
 
     public List<JsonTest> test = new List<JsonTest>();
     public void LoadScore()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        int filecount = Directory.GetFiles("TestJson/", "*.json").Length;       //파일 개수
+        test.RemoveRange(0, test.Count);                //리스트 초기화(전부 삭제)
+        
+        for (int i = 0; i < filecount; i++)
         {
-            JsonTest temp = new JsonTest(0, "");
-            for (int i = 0; i < test.Count; i++)
+            string path = "TestJson/" + "Score" + i + ".json";
+            string json = File.ReadAllText(path);
+            JsonTest loadscore = JsonConvert.DeserializeObject<JsonTest>(json);
+            test.Add(loadscore);
+            Debug.Log($"test[{i}].Score = " + test[i].Score);
+            
+        }
+        JsonTest temp = new JsonTest(0, "");        //임시값
+        for (int i = 0; i < filecount - 1; i++)
+        {
+            for (int j = i + 1; j < filecount; j++)
             {
-                var loadscore = JsonConvert.DeserializeObject<JsonTest>("Score" + i + ".json");
-                test.Add(loadscore);
-            }
-
-            for (int i = 0; i < test.Count - 1; i++)
-            {
-                if (test[i].Score < test[i + 1].Score)
+                if (test[i].Score < test[j].Score)
                 {
                     temp = test[i];
-                    test[i] = test[i + 1];
-                    test[i + 1] = temp;
+                    test[i] = test[j];
+                    test[j] = temp;
                 }
-                Debug.Log(test[i]);
-                TestUI_Donggil.instance.UpdateRanking(i);
             }
         }
+        testui.UpdateRanking();
+        Debug.Log("FileCount : " + filecount);
     }
 }
 [System.Serializable]

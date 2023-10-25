@@ -5,31 +5,29 @@ using UnityEngine.UI;
 
 public class TestUI_Donggil : MonoBehaviour
 {
-    public static TestUI_Donggil instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public Text ScoreUI;
     public Text RankingUI;
+    public InputField input;
+    public string playerName = string.Empty;
 
     public void UpdateScore()
     {
         ScoreUI.text = string.Format("Score : {0}", GameManager.instance.current_score);
     }
 
-    public void UpdateRanking(int index)
+    public void UpdateRanking()
     {
-        RankingUI.text = string.Format("{0}µî : {1}" + GameManager.instance.test[index].name + "\n", index, GameManager.instance.test[index].Score);
+        RankingUI.text = string.Empty;
+        for (int i = 0; i < 3; i++)
+        {
+            RankingUI.text += string.Format("{0}µî : {1} : " + GameManager.instance.test[i].name + "\n", i + 1, GameManager.instance.test[i].Score);
+        }
+    }
+
+    public string InputName()
+    {
+        input.gameObject.SetActive(true);
+        playerName = input.text;
+        return playerName;
     }
 }
