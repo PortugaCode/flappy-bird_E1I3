@@ -23,41 +23,75 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+
         SaveScore();
+
+
+
+        LoadScore();
+
+
     }
 
-    public int score = 0;
+    public int current_score = 0;
 
-    public void Score(int i)
+    public void Score(int s)
     {
-        score += i;
+        current_score += s;
         TestUI_Donggil.instance.UpdateScore();
     }
 
-    public List<JsonTest> test = new List<JsonTest>();
 
+    int index = 0;
     public void SaveScore()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            string filename = "Score" + index + ".json";
+            filename = Path.Combine("TestJson/", filename);
+            string toJson = JsonConvert.SerializeObject(new JsonTest(current_score, "AAA"), Formatting.Indented);
+            
+            File.WriteAllText(filename, toJson);
+            Debug.Log("Save " + filename);
+            index++;
+        }
+    }
+
+    public List<JsonTest> test = new List<JsonTest>();
+    public void LoadScore()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            test.Add(new JsonTest(1, score, "AAAA"));
-            string filename = "Test.json";
-            filename = Path.Combine("TestJson/", filename);
-            string toJson = JsonConvert.SerializeObject(test[0], Formatting.Indented);
-            File.WriteAllText(filename, toJson);
+            JsonTest temp = new JsonTest(0, "");
+            for (int i = 0; i < test.Count; i++)
+            {
+                var loadscore = JsonConvert.DeserializeObject<JsonTest>("Score" + i + ".json");
+                test.Add(loadscore);
+            }
+
+            for (int i = 0; i < test.Count - 1; i++)
+            {
+                if (test[i].Score < test[i + 1].Score)
+                {
+                    temp = test[i];
+                    test[i] = test[i + 1];
+                    test[i + 1] = temp;
+                }
+                Debug.Log(test[i]);
+                TestUI_Donggil.instance.UpdateRanking(i);
+            }
         }
     }
 }
 [System.Serializable]
 public class JsonTest
 {
-    public int Rank;
     public int Score;
     public string name;
 
-    public JsonTest(int rank, int score, string name)
+    public JsonTest(int score, string name)
     {
-        Rank = rank;
         Score = score;
         this.name = name;
     }

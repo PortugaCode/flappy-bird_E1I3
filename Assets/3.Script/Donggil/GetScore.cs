@@ -13,7 +13,4 @@ public class GetScore : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
-    
-
 }

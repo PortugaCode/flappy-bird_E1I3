@@ -21,9 +21,15 @@ public class TestUI_Donggil : MonoBehaviour
     }
 
     public Text ScoreUI;
+    public Text RankingUI;
 
     public void UpdateScore()
     {
-        ScoreUI.text = string.Format("Score : {0}", GameManager.instance.score);
+        ScoreUI.text = string.Format("Score : {0}", GameManager.instance.current_score);
+    }
+
+    public void UpdateRanking(int index)
+    {
+        RankingUI.text = string.Format("{0}µî : {1}" + GameManager.instance.test[index].name + "\n", index, GameManager.instance.test[index].Score);
     }
 }
