@@ -19,6 +19,9 @@ public class PlayerController : PlayerMovement_oh
     //두 번 맞아야 죽는거 => TakeDamege 메소드로 해결
 
     //옆으로 대쉬
+    private bool isRun = false;
+    private bool isRunCoolDown = false;
+    public bool IsRun => isRun;
 
     private void Awake()
     {
@@ -38,24 +41,52 @@ public class PlayerController : PlayerMovement_oh
     {
         animator.SetBool("Die", isDie);
         animator.SetBool("Armor", isArmor);
+        animator.SetBool("Run", isRun);
         if (isDie) return;
 
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Roll") && !isArmor)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Roll") && !isArmor &&!isRun)
         {
             rig.velocity = Vector3.zero;
             rig.AddForce(new Vector3(rig.velocity.x, JumpForce, rig.velocity.z));
             animator.SetTrigger("Jump");
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && !isArmorCoolDown)
-        {
-            StartCoroutine(ArmorSkill());
-        }
+        //무적 스킬 ====================================================
+        //if(Input.GetKeyDown(KeyCode.Space) && !isArmorCoolDown)
+        //{
+        //    StartCoroutine(ArmorSkill());
+        //}
+        //-==============================================================
+
+
+        //대쉬 스킬======================================================
+        //if(Input.GetKeyDown(KeyCode.Space) && !isRunCoolDown)
+        //{
+        //    StartCoroutine(RunSkill_Right());
+        //}
+        //-==============================================================
     }
-    
+
+    //private IEnumerator RunSkill_Right()
+    //{
+    //    isRun = true;
+    //    isRunCoolDown = true;
+    //    rig.velocity = Vector3.zero;
+    //    rig.useGravity = false;
+    //    rig.AddForce(new Vector3(rig.velocity.x, rig.velocity.y, rig.velocity.z));
+    //    yield return new WaitForSeconds(0.3f);
+    //    rig.useGravity = true;
+    //    isRun = false;
+    //
+    //    yield return new WaitForSeconds(13f);
+    //    isRunCoolDown = true;
+    //}
+
+
+
     private IEnumerator ArmorSkill()
     {
         isArmor = true;
@@ -70,8 +101,6 @@ public class PlayerController : PlayerMovement_oh
         yield return new WaitForSeconds(7f);
         isArmorCoolDown = false;
     }
-
-
 
 
     //데미지 메소드
