@@ -73,9 +73,10 @@ GameObject:
   - component: {fileID: 2008955852466927562}
   - component: {fileID: 2008955852466927563}
   - component: {fileID: 2008955852466927564}
+  - component: {fileID: 7426175621992341579}
   m_Layer: 0
   m_Name: Lower Pipe
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +144,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7426175621992341579
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008955852466927565}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.8817059, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0.12031762}
 --- !u!1 &2008955853075263208
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +169,7 @@ GameObject:
   - component: {fileID: 3012650323977321835}
   m_Layer: 0
   m_Name: Pipe
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,9 +216,10 @@ GameObject:
   - component: {fileID: 5969799000459036244}
   - component: {fileID: 7311355514910722545}
   - component: {fileID: 4797407084839189819}
+  - component: {fileID: 1285138442548400196}
   m_Layer: 0
   m_Name: Upper Pipe
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -272,3 +287,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1285138442548400196
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454551221270715630}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.8817059, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0.12031762}

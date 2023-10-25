@@ -37,6 +37,12 @@ public class Pipe : MonoBehaviour
         lower.transform.localScale = new Vector3(lower.transform.localScale.x, lowerScale, lower.transform.localScale.z);
     }
 
+    public void ClosePipe()
+    {
+        upper.transform.localScale = new Vector3(upper.transform.localScale.x, 7.5f, upper.transform.localScale.z);
+        lower.transform.localScale = new Vector3(lower.transform.localScale.x, 7.5f, lower.transform.localScale.z);
+    }
+
     private void MoveForward()
     {
         transform.position += new Vector3(0, 0, -1.0f * moveSpeed * Time.deltaTime);
@@ -49,6 +55,8 @@ public class Pipe : MonoBehaviour
             isEnd = true;
             gameObject.SetActive(false);
             PipeSpawner.instance.pipes.Enqueue(gameObject);
+            PipeSpawner.instance.SpawnPipe();
         }
     }
+
 }
