@@ -665,6 +665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   current_score: 0
   current_name: 
+  inputField: {fileID: 591148727}
   test: []
 --- !u!4 &243057841
 Transform:

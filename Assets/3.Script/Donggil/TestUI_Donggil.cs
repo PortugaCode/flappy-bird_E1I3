@@ -24,12 +24,9 @@ public class TestUI_Donggil : MonoBehaviour
         }
     }
 
-    public void InputName(int index)
+    public void InputName()
     {
-        input.gameObject.SetActive(true);
         playerName = input.text;
         GameManager.instance.current_name = playerName;
-        input.gameObject.SetActive(false);
-
     }
 }
