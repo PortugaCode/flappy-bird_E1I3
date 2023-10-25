@@ -20,14 +20,16 @@ public class TestUI_Donggil : MonoBehaviour
         RankingUI.text = string.Empty;
         for (int i = 0; i < 3; i++)
         {
-            RankingUI.text += string.Format("{0}µî : {1} : " + GameManager.instance.test[i].name + "\n", i + 1, GameManager.instance.test[i].Score);
+            RankingUI.text += string.Format("{0}µî : {1} : " + GameManager.instance.test[i].name + "\n\n\n", i + 1, GameManager.instance.test[i].Score);
         }
     }
 
-    public string InputName()
+    public void InputName(int index)
     {
         input.gameObject.SetActive(true);
         playerName = input.text;
-        return playerName;
+        GameManager.instance.current_name = playerName;
+        input.gameObject.SetActive(false);
+
     }
 }

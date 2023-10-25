@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
 
     public int current_score = 0;
+    public string current_name = string.Empty;
 
     public void Score(int s)
     {
@@ -56,9 +57,10 @@ public class GameManager : MonoBehaviour
     public void SaveScore()
     {
         int filecount = Directory.GetFiles("TestJson/", "*.json").Length;
+        testui.InputName(filecount);
         string filename = "Score" + filecount + ".json";
         filename = Path.Combine("TestJson/", filename);
-        string toJson = JsonConvert.SerializeObject(new JsonTest(current_score, "AAA"), Formatting.Indented);
+        string toJson = JsonConvert.SerializeObject(new JsonTest(current_score, current_name), Formatting.Indented);
 
         File.WriteAllText(filename, toJson);
         Debug.Log("Save " + filename);
