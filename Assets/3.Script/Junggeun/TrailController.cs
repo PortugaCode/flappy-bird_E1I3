@@ -24,9 +24,21 @@ public class TrailController : MonoBehaviour
     [SerializeField] public float shadervarRate = 0.1f;
     [SerializeField] public float shaderRefreshRate = 0.05f;
 
+    private PlayerController player;
+
+    private void Awake()
+    {
+        TryGetComponent(out player);
+    }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !isTrailActive)
+        if(Input.GetKeyDown(KeyCode.UpArrow) && !isTrailActive && !player.IsArmor)
+        {
+            isTrailActive = true;
+            StartCoroutine(ActivateTrail(activetime));
+        }
+        if(player.IsArmor && !isTrailActive)
         {
             isTrailActive = true;
             StartCoroutine(ActivateTrail(activetime));
@@ -53,6 +65,12 @@ public class TrailController : MonoBehaviour
 
                 mf.mesh = mesh;
                 mr.material = mat;
+
+                if(player.IsArmor)
+                {
+                    mr.material.SetColor("Color_3e9d31d8169b419ea8cb0a26c5e71f67", new Color (39f,42f,191f));
+                    mr.material.SetFloat(shaderVarRef, 0.5f);
+                }
 
                 StartCoroutine(AnimateMaterialFloat(mr.material, 0, shadervarRate, shaderRefreshRate));
 
