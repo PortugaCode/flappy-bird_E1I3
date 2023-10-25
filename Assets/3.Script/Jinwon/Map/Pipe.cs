@@ -59,4 +59,17 @@ public class Pipe : MonoBehaviour
         }
     }
 
+    /*private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            if (collision.collider.GetComponent<PlayerController>().isArmor) // 플레이어 컨트롤러 스크립트의 isArmor가 true 일때
+            {
+                isEnd = true;
+                gameObject.SetActive(false);
+                PipeSpawner.instance.pipes.Enqueue(gameObject);
+                PipeSpawner.instance.SpawnPipe();
+            }
+        }
+    }*/
 }
