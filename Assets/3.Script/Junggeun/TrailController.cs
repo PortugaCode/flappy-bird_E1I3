@@ -12,11 +12,17 @@ public class TrailController : MonoBehaviour
 
     private bool isTrailActive;
     private SkinnedMeshRenderer[] skinnedMeshRenderers;
+    
+    
 
     [SerializeField] private Transform spawnposition;
 
     [Header("Shader")]
     [SerializeField] private Material mat;
+
+    [SerializeField] private string shaderVarRef;
+    [SerializeField] public float shadervarRate = 0.1f;
+    [SerializeField] public float shaderRefreshRate = 0.05f;
 
     private void Update()
     {
@@ -48,6 +54,8 @@ public class TrailController : MonoBehaviour
                 mf.mesh = mesh;
                 mr.material = mat;
 
+                StartCoroutine(AnimateMaterialFloat(mr.material, 0, shadervarRate, shaderRefreshRate));
+
                 Destroy(gObj, destroyDelay);
 
             }
@@ -56,5 +64,17 @@ public class TrailController : MonoBehaviour
         }
 
         isTrailActive = false;
+    }
+
+    private IEnumerator AnimateMaterialFloat(Material mat, float goal, float rate, float refrehRate)
+    {
+        float valueToAnimate = mat.GetFloat(shaderVarRef);
+        
+        while(valueToAnimate > goal)
+        {
+            valueToAnimate -= rate;
+            mat.SetFloat(shaderVarRef, valueToAnimate);
+            yield return new WaitForSeconds(refrehRate);
+        }
     }
 }

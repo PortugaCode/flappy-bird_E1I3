@@ -429,10 +429,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activetime: 0.4
-  meshRefreshRate: 0.07
-  destroyDelay: 0.1
-  spawnposition: {fileID: 543450652172480815}
-  mat: {fileID: 2100000, guid: 797669773fa10544383b7822df49f5d9, type: 2}
+  meshRefreshRate: 0.1
+  destroyDelay: 0.5
+  spawnposition: {fileID: 3748359891760748048}
+  mat: {fileID: 2100000, guid: f6128295f62b6ff4b9ff8fd917df8b2f, type: 2}
+  shaderVarRef: Vector1_bb4e643a3bf24c22b5e0da4674626d69
+  shadervarRate: 0.1
+  shaderRefreshRate: 0.05
 --- !u!114 &919132148433267609
 MonoBehaviour:
   m_ObjectHideFlags: 0
