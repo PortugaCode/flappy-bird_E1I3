@@ -33,7 +33,7 @@ public class PlayerController : PlayerMovement_oh
 
     private void FixedUpdate()
     {
-        if (isDie) return;
+        if (isDie || isRun) return;
         rig.velocity = new Vector3(horizontal * MoveSpeed * Time.deltaTime, rig.velocity.y, rig.velocity.z);
     }
 
@@ -63,27 +63,27 @@ public class PlayerController : PlayerMovement_oh
 
 
         //대쉬 스킬======================================================
-        //if(Input.GetKeyDown(KeyCode.Space) && !isRunCoolDown)
-        //{
-        //    StartCoroutine(RunSkill_Right());
-        //}
+        if(Input.GetKeyDown(KeyCode.Space) && !isRunCoolDown)
+        {
+            StartCoroutine(RunSkill());
+        }
         //-==============================================================
     }
 
-    //private IEnumerator RunSkill_Right()
-    //{
-    //    isRun = true;
-    //    isRunCoolDown = true;
-    //    rig.velocity = Vector3.zero;
-    //    rig.useGravity = false;
-    //    rig.AddForce(new Vector3(rig.velocity.x, rig.velocity.y, rig.velocity.z));
-    //    yield return new WaitForSeconds(0.3f);
-    //    rig.useGravity = true;
-    //    isRun = false;
-    //
-    //    yield return new WaitForSeconds(13f);
-    //    isRunCoolDown = true;
-    //}
+    private IEnumerator RunSkill()
+    {
+        isRun = true;
+        isRunCoolDown = true;
+        rig.velocity = Vector3.zero;
+        rig.useGravity = false;
+        rig.AddForce(new Vector3(horizontal * MoveSpeed+100f * Time.deltaTime, rig.velocity.y, rig.velocity.z));
+        yield return new WaitForSeconds(0.4f);
+        rig.useGravity = true;
+        isRun = false;
+    
+        yield return new WaitForSeconds(5f);
+        isRunCoolDown = false;
+    }
 
 
 
