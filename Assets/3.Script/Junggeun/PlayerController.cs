@@ -7,8 +7,9 @@ public class PlayerController : PlayerMovement_oh
     private Rigidbody rig;
     private Animator animator;
     private bool isDie;
+    public bool IsDie => isDie;
 
-    private int Maxhp = 1;
+    private int Maxhp = 2;
     private int Curhp;
 
     //Skill 무적
@@ -45,24 +46,10 @@ public class PlayerController : PlayerMovement_oh
         animator.SetBool("Die", isDie);
         animator.SetBool("Armor", isArmor);
         animator.SetBool("Run", isRun);
-        if (isDie) return;
-
-        float x = Mathf.Clamp(transform.position.x, -4.5f, 4.5f);
-        float y = Mathf.Clamp(transform.position.y, -5.5f, 5.5f);
-        transform.position = new Vector3(x, y, transform.position.z);
-
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Roll") && !isArmor &&!isRun)
+        if (isDie)
         {
-            rig.velocity = Vector3.zero;
-            rig.AddForce(new Vector3(rig.velocity.x, JumpForce, rig.velocity.z));
-            animator.SetTrigger("Jump");
-            AudioManager.Instance.PlaySFX("Jump");
-        }
-        else if(Input.GetKeyUp(KeyCode.UpArrow) && rig.velocity.y > 0)
-        {
-            rig.velocity = new Vector3(rig.velocity.x, rig.velocity.y * 0.55f, rig.velocity.z);
+            coll.isTrigger = true;
+            return;
         }
 
         //무적 스킬 ====================================================
@@ -74,11 +61,34 @@ public class PlayerController : PlayerMovement_oh
 
 
         //대쉬 스킬======================================================
-        if(Input.GetKeyDown(KeyCode.Space) && !isRunCoolDown)
+        if (Input.GetKeyDown(KeyCode.Space) && !isRunCoolDown)
         {
             StartCoroutine(RunSkill());
         }
         //-==============================================================
+
+        float x = Mathf.Clamp(transform.position.x, -4.5f, 4.5f);
+        float y = Mathf.Clamp(transform.position.y, -5.5f, 5.5f);
+        transform.position = new Vector3(x, y, transform.position.z);
+
+
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Roll") && !isArmor &&!isRun)
+        {
+            rig.velocity = Vector3.zero;
+            rig.AddForce(new Vector3(rig.velocity.x, JumpForce, rig.velocity.z));
+            animator.SetTrigger("Jump");
+            AudioManager.Instance.PlaySFX("Jump");
+        }
+        else if (Input.GetKeyUp(KeyCode.UpArrow) && rig.velocity.y > 0)
+        {
+            rig.velocity = new Vector3(rig.velocity.x, rig.velocity.y * 0.55f, rig.velocity.z);
+        }
+
+
+
     }
 
     private IEnumerator RunSkill()
@@ -117,7 +127,7 @@ public class PlayerController : PlayerMovement_oh
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Pipe"))
+        if(other.CompareTag("Pipe") && gameObject.CompareTag("Player"))
         {
             TakeDamege();
             Debug.Log("닿았다");
@@ -134,11 +144,18 @@ public class PlayerController : PlayerMovement_oh
         if(Curhp <= 0)
         {
             isDie = true;
-            coll.isTrigger = true;
         }
         animator.SetTrigger("Hit");
         AudioManager.Instance.PlaySFX("Hit");
     }
 
-
+    //Hit 후 잠시 무적
+    private IEnumerator hitarmor()
+    {
+        coll.isTrigger = true;
+        gameObject.tag = "ArmorPlayer";
+        yield return new WaitForSeconds(1f);
+        coll.isTrigger = false;
+        gameObject.tag = "Player";
+    }
 }

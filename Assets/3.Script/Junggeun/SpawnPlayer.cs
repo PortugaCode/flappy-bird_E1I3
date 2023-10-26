@@ -9,6 +9,6 @@ public class SpawnPlayer : MonoBehaviour
 
     private void Awake()
     {
-        clone = Instantiate(Player[0], transform.position, Quaternion.identity);
+        clone = Instantiate(Player[1], transform.position, Quaternion.identity);
     }
 }
