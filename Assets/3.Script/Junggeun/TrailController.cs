@@ -38,7 +38,7 @@ public class TrailController : MonoBehaviour
             isTrailActive = true;
             StartCoroutine(ActivateTrail(activetime));
         }
-        if(player.IsArmor && !isTrailActive)
+        if(player.IsArmor || player.IsRun && !isTrailActive )
         {
             isTrailActive = true;
             StartCoroutine(ActivateTrail(activetime));
@@ -66,7 +66,7 @@ public class TrailController : MonoBehaviour
                 mf.mesh = mesh;
                 mr.material = mat;
 
-                if(player.IsArmor)
+                if(player.IsArmor || player.IsRun)
                 {
                     mr.material.SetColor("Color_3e9d31d8169b419ea8cb0a26c5e71f67", new Color (39f,42f,191f));
                     mr.material.SetFloat(shaderVarRef, 0.5f);
