@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdConroll_first : MonoBehaviour
+public class Ani_BirdControll : MonoBehaviour
 {
     private Animator anim;
     private CharacterManager char_manager;

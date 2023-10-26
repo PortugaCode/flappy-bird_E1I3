@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdControll_second : MonoBehaviour
+public class Ani_MonkeyControll : MonoBehaviour
 {
     private Animator anim;
     private CharacterManager char_manager;
@@ -19,7 +19,7 @@ public class BirdControll_second : MonoBehaviour
     {
         if (char_manager.ready)
         {
-            anim.SetTrigger("Gogame1");
+            anim.SetTrigger("Gogame");
         }
     }
 }
