@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 42662048857897289}
   m_Layer: 0
   m_Name: Lower Pivot
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 42662049376269738}
   m_Layer: 0
   m_Name: Upper Pivot
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 7426175621992341579}
   m_Layer: 0
   m_Name: Lower Pipe
-  m_TagString: Obstacle
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 3012650323977321835}
   m_Layer: 0
   m_Name: Pipe
-  m_TagString: Obstacle
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 1285138442548400196}
   m_Layer: 0
   m_Name: Upper Pipe
-  m_TagString: Obstacle
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

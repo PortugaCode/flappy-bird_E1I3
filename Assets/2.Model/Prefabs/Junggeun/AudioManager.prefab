@@ -562,11 +562,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGM:
   - name: Intro
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 1896556d98bb4864db5201939300c30c, type: 3}
   - name: Game
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: c3409af333cd797459cf48d02d91564b, type: 3}
   - name: GameOver
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: d8389d00162b7e345bfcf2ffe75e68d6, type: 3}
   SFX:
   - name: Jump
     clip: {fileID: 8300000, guid: 8ad429587a521d74ca2fa286aca1cdcd, type: 3}

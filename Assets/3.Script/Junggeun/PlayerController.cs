@@ -23,12 +23,15 @@ public class PlayerController : PlayerMovement_oh
     private bool isRunCoolDown = false;
     public bool IsRun => isRun;
 
+    private CapsuleCollider coll;
+
     private void Awake()
     {
         Curhp = Maxhp;
         isDie = false;
         TryGetComponent(out rig);
         TryGetComponent(out animator);
+        TryGetComponent(out coll);
     }
 
     private void FixedUpdate()
@@ -105,16 +108,30 @@ public class PlayerController : PlayerMovement_oh
         isArmorCoolDown = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Pipe"))
+        {
+            TakeDamege();
+            Debug.Log("닿았다");
+        }
+    }
+
 
     //데미지 메소드
     public void TakeDamege(int damege = 1)
     {
+        Debug.Log("데미지 받았다.");
+
         Curhp -= damege;
         if(Curhp <= 0)
         {
             isDie = true;
+            coll.isTrigger = true;
         }
         animator.SetTrigger("Hit");
         AudioManager.Instance.PlaySFX("Hit");
     }
+
+
 }
