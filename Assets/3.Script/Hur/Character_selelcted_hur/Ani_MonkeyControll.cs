@@ -11,11 +11,11 @@ public class Ani_MonkeyControll : MonoBehaviour
         anim = GetComponent<Animator>();
         char_manager = FindObjectOfType<CharacterManager>();
     }
-    private void Update()
-    {
-        Ready();
-    }
-    private void Ready()
+    //private void Update()
+    //{
+    //    Ready();
+    //}
+    public void Ready()
     {
         if (char_manager.ready)
         {

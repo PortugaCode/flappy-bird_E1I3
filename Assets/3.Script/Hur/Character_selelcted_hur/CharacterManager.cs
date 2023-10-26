@@ -6,7 +6,7 @@ using System.Linq;
 
 public enum Animal
 {
-    first, second, third
+    bird, fish, monkey 
 }
 
 public class CharacterManager : MonoBehaviour
@@ -16,14 +16,21 @@ public class CharacterManager : MonoBehaviour
     public List<GameObject> animals;
     private Dictionary<Animal, GameObject> enumToGameObjectMap = new Dictionary<Animal, GameObject>();
 
+    public Animal curr_Animal; //다음 플레이어 지정할 때 쓰는 변수
+
     private Animator anim;
     private int index;
     public bool ready;
 
+    public Ani_BirdControll bird;
+    public Ani_FishControll fish;
+    public Ani_MonkeyControll monkey;
+
+    private GameObject selectedObject;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
         #region 싱글톤
         //싱글톤
         if (instance == null)
@@ -36,9 +43,7 @@ public class CharacterManager : MonoBehaviour
             Destroy(gameObject);
         }
         #endregion
-
         ready = false;
-
     }
     private void Start()
     {
@@ -49,8 +54,8 @@ public class CharacterManager : MonoBehaviour
             enumToGameObjectMap[enumValue] = animals[i];
         }
 
-        Animal selectedType = Animal.first;
-        GameObject selectedObject = enumToGameObjectMap[selectedType];
+        Animal selectedType = Animal.bird;
+        selectedObject = enumToGameObjectMap[selectedType];
 
         if (selectedType != null)
         {
@@ -66,9 +71,10 @@ public class CharacterManager : MonoBehaviour
         if (animals[0])//첫번째 캐릭은 스프라이트 렌더 켜기
         {
             animals[0].SetActive(true);
-        }
-    }
 
+        }
+
+    }
     public void ToggleLeft()
     {
         //Toggle off the current model
@@ -97,10 +103,25 @@ public class CharacterManager : MonoBehaviour
         //Toggle on the new model
         animals[index].SetActive(true);
     }
+
     public void Selected_char()
     {
         ready = true;
         Debug.Log("이 캐릭터가 선택되었습니다");
+        curr_Animal = (Animal)index;
+        switch ((Animal)index)
+        {
+            case Animal.bird:
+                bird.Ready();
+                break;
+            case Animal.fish:
+                fish.Ready();
+                break;
+            case Animal.monkey:
+                monkey.Ready();
+                break;
+
+        }
     }
 }
 
