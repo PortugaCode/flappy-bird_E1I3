@@ -10,10 +10,18 @@ public class ScoreTrigger : MonoBehaviour
     [Header("Status")]
     public float moveSpeed = 5.0f;
 
+    private BoxCollider boxCollider;
+
+    private void Awake()
+    {
+        TryGetComponent(out boxCollider);
+    }
+
     private void OnEnable()
     {
         isScored = false;
         isEnd = false;
+        boxCollider.enabled = true;
     }
 
     private void Update()
@@ -31,7 +39,7 @@ public class ScoreTrigger : MonoBehaviour
             //other.GetComponent<PlayerController>().스코어올리는메서드();
             Debug.Log("Scored");
 
-            gameObject.SetActive(false);
+            boxCollider.enabled = false;
         }
     }
 
