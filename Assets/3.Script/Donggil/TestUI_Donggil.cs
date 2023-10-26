@@ -10,7 +10,7 @@ public class TestUI_Donggil : MonoBehaviour
     public InputField input;
     public string playerName = string.Empty;
 
-    [SerializeField] private int outputRank = 3;
+    [SerializeField] private int outputRank;
 
     public void UpdateScore()
     {
@@ -20,10 +20,12 @@ public class TestUI_Donggil : MonoBehaviour
     public void UpdateRanking()
     {
         RankingUI.text = string.Empty;
+        outputRank = GameManager.instance.rank.Count;
+        if (outputRank > 3) outputRank = 3;
         for (int i = 0; i < outputRank; i++)
         {
             RankingUI.text += string.Format("{0}µî : {1} : " + GameManager.instance.rank[i].name + "\n\n\n", i + 1, GameManager.instance.rank[i].Score);
-            if (GameManager.instance.rank[i + 1] == null) break;
+
         }
     }
 
