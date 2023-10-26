@@ -9,7 +9,7 @@ public class GetScore : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            GameManager.instance.Score(10);
+            GameManager.instance.Score(100);
             gameObject.SetActive(false);
         }
     }
