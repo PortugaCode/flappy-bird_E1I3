@@ -26,7 +26,12 @@ public class TestUI_Donggil : MonoBehaviour
 
     public void InputName()
     {
-        playerName = input.text;
-        GameManager.instance.current_name = playerName;
+        if (input.text != string.Empty)
+        {
+            playerName = input.text;
+            GameManager.instance.current_name = playerName;
+            Debug.Log(GameManager.instance.current_name);
+            input.text = string.Empty;
+        }
     }
 }
