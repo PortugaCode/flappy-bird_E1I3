@@ -52,6 +52,7 @@ public class PlayerController : PlayerMovement_oh
             rig.velocity = Vector3.zero;
             rig.AddForce(new Vector3(rig.velocity.x, JumpForce, rig.velocity.z));
             animator.SetTrigger("Jump");
+            AudioManager.Instance.PlaySFX("Jump");
         }
 
         //무적 스킬 ====================================================
@@ -77,6 +78,7 @@ public class PlayerController : PlayerMovement_oh
         rig.velocity = Vector3.zero;
         rig.useGravity = false;
         rig.AddForce(new Vector3(horizontal * MoveSpeed+100f * Time.deltaTime, rig.velocity.y, rig.velocity.z));
+        AudioManager.Instance.PlaySFX("Dash");
         yield return new WaitForSeconds(0.4f);
         rig.useGravity = true;
         isRun = false;
@@ -94,6 +96,7 @@ public class PlayerController : PlayerMovement_oh
         rig.velocity = Vector3.zero;
         rig.useGravity = false;
         //ignoreLayer 시작 넣기
+        AudioManager.Instance.PlaySFX("Dash");
         yield return new WaitForSeconds(5f);
         //ignoreLayer 끝 넣기
         isArmor = false;
@@ -112,5 +115,6 @@ public class PlayerController : PlayerMovement_oh
             isDie = true;
         }
         animator.SetTrigger("Hit");
+        AudioManager.Instance.PlaySFX("Hit");
     }
 }
