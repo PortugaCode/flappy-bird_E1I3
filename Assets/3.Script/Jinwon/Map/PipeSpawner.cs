@@ -6,13 +6,17 @@ public class PipeSpawner : MonoBehaviour
 {
     public static PipeSpawner instance;
 
-    [Header("Pipe")]
+    [Header("Prefabs")]
     [SerializeField] private GameObject pipePrefab;
+    [SerializeField] private GameObject scoreTriggerPrefab;
 
     [Header("Object Pool")]
     [SerializeField] private GameObject objectPool;
     public Queue<GameObject> pipes;
     private int pipeCount = 21;
+
+    public Queue<GameObject> scoreTriggers;
+    private int scoreTriggerCount;
 
     [Header("Spawn")]
     public float spawnDistance = 5.0f;
@@ -26,13 +30,17 @@ public class PipeSpawner : MonoBehaviour
             instance = this;
         }
 
-        spawnPositions[0] = new Vector3(transform.position.x - widthDistance, 0, pipeCount / 3 * spawnDistance - spawnDistance);
-        spawnPositions[1] = new Vector3(transform.position.x, 0, pipeCount / 3 * spawnDistance - spawnDistance);
-        spawnPositions[2] = new Vector3(transform.position.x + widthDistance, 0, pipeCount / 3 * spawnDistance - spawnDistance);
+        spawnPositions[0] = new Vector3(transform.position.x - widthDistance, 0, pipeCount / 3 * spawnDistance - 2 * spawnDistance);
+        spawnPositions[1] = new Vector3(transform.position.x, 0, pipeCount / 3 * spawnDistance - 2 * spawnDistance);
+        spawnPositions[2] = new Vector3(transform.position.x + widthDistance, 0, pipeCount / 3 * spawnDistance - 2 * spawnDistance);
 
         pipes = new Queue<GameObject>();
+        scoreTriggers = new Queue<GameObject>();
+
+        scoreTriggerCount = pipeCount / 3;
 
         CreatePipe();
+        CreateScoreTrigger();
         SetPipe();
     }
 
@@ -47,6 +55,17 @@ public class PipeSpawner : MonoBehaviour
         }
     }
 
+    private void CreateScoreTrigger()
+    {
+        for (int i = 0; i < scoreTriggerCount; i++)
+        {
+            GameObject scoreTrigger = Instantiate(scoreTriggerPrefab);
+            scoreTrigger.transform.SetParent(objectPool.transform);
+            scoreTrigger.SetActive(false);
+            scoreTriggers.Enqueue(scoreTrigger);
+        }
+    }
+
     public void SpawnPipe()
     {
         if (pipes.Count > 3)
@@ -55,6 +74,10 @@ public class PipeSpawner : MonoBehaviour
 
             if (open == 0) // 0: open, 1: close
             {
+                GameObject scoreTrigger = scoreTriggers.Dequeue();
+                scoreTrigger.SetActive(true);
+                scoreTrigger.transform.position = spawnPositions[1];
+
                 for (int i = 0; i < 3; i++)
                 {
                     GameObject pipe = pipes.Dequeue();
@@ -65,6 +88,10 @@ public class PipeSpawner : MonoBehaviour
             }
             else if (open == 1)
             {
+                GameObject scoreTrigger = scoreTriggers.Dequeue();
+                scoreTrigger.SetActive(true);
+                scoreTrigger.transform.position = spawnPositions[1];
+
                 int openNum = Random.Range(0, 3);
 
                 for (int i = 0; i < 3; i++)
@@ -93,6 +120,10 @@ public class PipeSpawner : MonoBehaviour
 
             if (open == 0)
             {
+                GameObject scoreTrigger = scoreTriggers.Dequeue();
+                scoreTrigger.SetActive(true);
+                scoreTrigger.transform.position = new Vector3(spawnPositions[1].x, 0, i * spawnDistance);
+
                 for (int j = 0; j < 3; j++)
                 {
                     GameObject pipe = pipes.Dequeue();
@@ -103,6 +134,10 @@ public class PipeSpawner : MonoBehaviour
             }
             else if (open == 1)
             {
+                GameObject scoreTrigger = scoreTriggers.Dequeue();
+                scoreTrigger.SetActive(true);
+                scoreTrigger.transform.position = new Vector3(spawnPositions[1].x, 0, i * spawnDistance);
+
                 int openNum = Random.Range(0, 3);
 
                 for (int j = 0; j < 3; j++)

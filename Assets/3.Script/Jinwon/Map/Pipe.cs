@@ -50,7 +50,7 @@ public class Pipe : MonoBehaviour
 
     private void CheckEnd()
     {
-        if (transform.position.z < -15.0f && !isEnd)
+        if (transform.position.z < -17.5f && !isEnd)
         {
             isEnd = true;
             gameObject.SetActive(false);
