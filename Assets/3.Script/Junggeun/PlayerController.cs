@@ -47,6 +47,9 @@ public class PlayerController : PlayerMovement_oh
         animator.SetBool("Run", isRun);
         if (isDie) return;
 
+        float x = Mathf.Clamp(transform.position.x, -4.5f, 4.5f);
+        float y = Mathf.Clamp(transform.position.y, -5.5f, 5.5f);
+        transform.position = new Vector3(x, y, transform.position.z);
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
@@ -56,6 +59,10 @@ public class PlayerController : PlayerMovement_oh
             rig.AddForce(new Vector3(rig.velocity.x, JumpForce, rig.velocity.z));
             animator.SetTrigger("Jump");
             AudioManager.Instance.PlaySFX("Jump");
+        }
+        else if(Input.GetKeyUp(KeyCode.UpArrow) && rig.velocity.y > 0)
+        {
+            rig.velocity = new Vector3(rig.velocity.x, rig.velocity.y * 0.55f, rig.velocity.z);
         }
 
         //무적 스킬 ====================================================

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
+    private GameObject target;
 
     private Vector3 offset;
 
-    private void Awake()
+    private void Start()
     {
+        target = FindObjectOfType<SpawnPlayer>().clone;
         offset = transform.position - target.transform.position;
     }
 
