@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestUI_Donggil : MonoBehaviour
+public class UIUpdate : MonoBehaviour
 {
     public Text ScoreUI;
     public Text RankingUI;
@@ -17,7 +17,7 @@ public class TestUI_Donggil : MonoBehaviour
         ScoreUI.text = string.Format("Score : {0}", GameManager.instance.current_score);
     }
 
-    public void UpdateRanking()
+    public void UpdateRanking()         
     {
         RankingUI.text = string.Empty;
         outputRank = GameManager.instance.rank.Count;
@@ -29,7 +29,7 @@ public class TestUI_Donggil : MonoBehaviour
         }
     }
 
-    public void InputName()
+    public void InputName()             //###InputField 자식 버튼에 이 메소드 넣기###
     {
         if (input.text != string.Empty)
         {
