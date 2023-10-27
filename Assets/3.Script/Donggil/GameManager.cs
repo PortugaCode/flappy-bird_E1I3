@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOverInputName()
     {
-        yield return new WaitForSeconds(1f);            //3초 뒤에...
+        yield return new WaitForSeconds(1f);            //1초 뒤에...
         Time.timeScale = 0;                             //시간 재생 0
         //나중에 바꿀 InputField UI
         //***UI스크립트 바뀌면 여기 바꾸시오***
@@ -114,8 +114,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScore()         //###랭킹 보기 버튼에 이 메서드 넣기###
     {
-        rank.RemoveRange(0, rank.Count);                                        //리스트 초기화(전부 삭제)
-        int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;       //파일개수 불러오기
+        rank.Clear();                                                           //리스트 초기화(전부 삭제)
+        int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;   //파일개수 불러오기
         for (int i = 0; i < filecount; i++)                                     //.json 파일개수만큼 불러오기
         {
             string rankFileName = "Score" + i + ".json";
