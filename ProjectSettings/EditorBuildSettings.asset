@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/1.Scene/Hur/Title_hur.unity
+    guid: c3517d2b6dccee445bbc574732812eea
+  - enabled: 1
+    path: Assets/1.Scene/Hur/CharacterSelected_hur.unity
+    guid: c0ae84acb4aa84c47b0b67cd181ffdf3
+  - enabled: 1
+    path: Assets/1.Scene/Hur/GameOver_hur.unity
+    guid: 562459e5baca3ab4da78b68818beb168
+  - enabled: 1
+    path: Assets/1.Scene/Hur/InGameUI_hur.unity
+    guid: 235b13ac1e7a3b543ad3c56d3d18af76
   m_configObjects: {}
