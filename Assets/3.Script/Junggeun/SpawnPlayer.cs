@@ -5,9 +5,10 @@ using UnityEngine;
 public class SpawnPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject[] Player;
+    public GameObject clone;
 
-    private void Start()
+    private void Awake()
     {
-        GameObject clone = Instantiate(Player[0], transform.position, Quaternion.identity);
+        clone = Instantiate(Player[1], transform.position, Quaternion.identity);
     }
 }

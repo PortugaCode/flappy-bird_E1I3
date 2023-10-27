@@ -45,3 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player:
   - {fileID: 4090120748204080720, guid: d64eb9c532d67994fbeb5256900b2e84, type: 3}
+  - {fileID: 6065091502790536409, guid: 61276c9d39886624ca60eeeccce94dca, type: 3}
+  - {fileID: 5782701256562703657, guid: 60c063955a5017c4582491cf7e28a31c, type: 3}
+  clone: {fileID: 0}
