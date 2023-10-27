@@ -27,14 +27,12 @@ public class StopPlayManager : MonoBehaviour
         {
             click = false;
             Stop_game();
-
             GameObject.Find("Stop_btn").GetComponent<Image>().sprite = sprites[0];
         }
         else
         {
             click = true;
             Play_game();
-
             GameObject.Find("Stop_btn").GetComponent<Image>().sprite = sprites[1];
         }
     }
