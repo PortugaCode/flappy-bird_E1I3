@@ -15,11 +15,11 @@ public class StopPlayManager : MonoBehaviour
     }
     private void Stop_game()
     {
-        Debug.Log("»≠∏È ∏ÿ√Á!!");
+        Time.timeScale = 0;
     }
     private void Play_game()
     {
-        Debug.Log("«√∑π¿Ã¡ﬂ...");
+        Time.timeScale = 1.0f;
     }
     public void BtnClick()
     {

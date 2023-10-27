@@ -9,7 +9,7 @@ public class PlayerController : PlayerMovement_oh
     private bool isDie;
     public bool IsDie => isDie;
 
-    private int Maxhp = 2;
+    private int Maxhp = 1;
     private int Curhp;
 
     //Skill 무적
@@ -28,6 +28,11 @@ public class PlayerController : PlayerMovement_oh
 
     private void Awake()
     {
+        if(CharacterManager.instance.curr_Animal == Animal.monkey)
+        {
+            Maxhp = 2;
+        }
+
         Curhp = Maxhp;
         isDie = false;
         TryGetComponent(out rig);
@@ -52,20 +57,20 @@ public class PlayerController : PlayerMovement_oh
             return;
         }
 
-        //무적 스킬 ====================================================
-        //if(Input.GetKeyDown(KeyCode.Space) && !isArmorCoolDown)
-        //{
-        //    StartCoroutine(ArmorSkill());
-        //}
-        //-==============================================================
-
-
-        //대쉬 스킬======================================================
-        if (Input.GetKeyDown(KeyCode.Space) && !isRunCoolDown)
+        //무적 스킬 && 대쉬 스킬 ====================================================
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(RunSkill());
+            if(!isArmorCoolDown && CharacterManager.instance.curr_Animal == Animal.bird)
+            {
+                StartCoroutine(ArmorSkill()); // 무적
+            }
+            else if (!isRunCoolDown && CharacterManager.instance.curr_Animal == Animal.fish)
+            {
+                StartCoroutine(RunSkill()); // 대쉬
+            }
         }
         //-==============================================================
+
 
         float x = Mathf.Clamp(transform.position.x, -4.5f, 4.5f);
         float y = Mathf.Clamp(transform.position.y, -5.5f, 5.5f);
@@ -127,7 +132,7 @@ public class PlayerController : PlayerMovement_oh
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Pipe") && gameObject.CompareTag("Player"))
+        if(other.CompareTag("Pipe") && gameObject.CompareTag("Player") && !isArmor)
         {
             TakeDamege();
             Debug.Log("닿았다");
@@ -141,9 +146,10 @@ public class PlayerController : PlayerMovement_oh
         Debug.Log("데미지 받았다.");
 
         Curhp -= damege;
-        if(Curhp <= 0)
+        if(Curhp <= 0 && !isDie)
         {
             isDie = true;
+            GameManager.instance.GameOver();
         }
         animator.SetTrigger("Hit");
         AudioManager.Instance.PlaySFX("Hit");

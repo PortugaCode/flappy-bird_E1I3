@@ -34,11 +34,9 @@ public class ScoreTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isScored)
         {
+            Debug.Log("Score");
             isScored = true;
-
-            //other.GetComponent<PlayerController>().스코어올리는메서드();
-            Debug.Log("Scored");
-
+            GameManager.instance.Score(100);
             boxCollider.enabled = false;
         }
     }

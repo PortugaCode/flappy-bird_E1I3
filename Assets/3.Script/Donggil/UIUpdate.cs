@@ -24,7 +24,7 @@ public class UIUpdate : MonoBehaviour
         if (outputRank > 3) outputRank = 3;
         for (int i = 0; i < outputRank; i++)
         {
-            RankingUI.text += string.Format("{0}µî : {1} : " + GameManager.instance.rank[i].name + "\n\n\n", i + 1, GameManager.instance.rank[i].Score);
+            //RankingUI.text += string.Format("{0}µî : {1} : " + GameManager.instance.rank[i].name + "\n\n\n", i + 1, GameManager.instance.rank[i].Score);
 
         }
     }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Sound
@@ -13,6 +15,7 @@ public class Sound
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance = null;
+    public Slider slider;
     private void Awake()
     {
         if(Instance == null)
@@ -25,6 +28,11 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
         AutoSetting();
+
+        if(SceneManager.GetActiveScene().name == "Title_hur")
+        {
+            PlayBGM("Intro");
+        }
     }
 
     [Header("Audio Clip")]
@@ -34,6 +42,7 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Source")]
     [SerializeField] private AudioSource BGMPlayer;
     [SerializeField] private AudioSource[] SFXPlayer;
+
 
     private void AutoSetting()
     {
@@ -80,6 +89,11 @@ public class AudioManager : MonoBehaviour
             }
         }
         Debug.Log($"SFXPlayer에 {name}이 없다.");
+    }
+
+    public void SetAudioVolume()
+    {
+        BGMPlayer.volume = slider.value;
     }
 
 }

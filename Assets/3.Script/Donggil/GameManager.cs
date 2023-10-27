@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         if (instance == null)
         {
             instance = this;
@@ -34,25 +35,46 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    private UIUpdate uiUpdate;      //***UI스크립트 바뀌면 여기 바꾸시오***
+    //private UIUpdate uiUpdate;      //***UI스크립트 바뀌면 여기 바꾸시오***
     public bool isGameOver = false;
     public bool isGameStart = false;
 
     public int current_score = 0;
     public string current_name = string.Empty;
 
-
+    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private Text scoreText;
 
     private void Start()
     {
-        uiUpdate = FindObjectOfType<UIUpdate>();    //***UI스크립트 바뀌면 여기 바꾸시오***
+        //uiUpdate = FindObjectOfType<UIUpdate>();    //***UI스크립트 바뀌면 여기 바꾸시오***
         isGameStart = false;
         isGameOver = false;
     }
 
-    private void Update()
+    public void Init_MainToMain()
     {
-        GameStart();
+        Debug.Log("MTM");
+
+        // main -> main 는 괜찮
+
+        //gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
+        //scoreText = gameOverUI.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>();
+
+        current_score = 0;
+        isGameOver = false;
+        isGameStart = true;
+    }
+
+    public void Init_TitleToMain()
+    {
+        Debug.Log("TTM");
+
+        // title -> main 일때 null
+
+        current_score = 0;
+        isGameOver = false;
+        isGameStart = true;
     }
 
     public void GameStart()
@@ -71,42 +93,50 @@ public class GameManager : MonoBehaviour
     public void Score(int s)        //***점수 메소드 바꿀시 여기***
     {
         current_score += s;
-        uiUpdate.UpdateScore();     //***점수 UI 바꿀시 여기***
+        //uiUpdate.UpdateScore();     //***점수 UI 바꿀시 여기***
     }
 
     public void GameOver()          //###게임오버 될 시 이 메소드 넣기###
     {
+        Debug.Log("GameOver호출");
         isGameOver = true;
         StartCoroutine(GameOverInputName());
     }
 
     private IEnumerator GameOverInputName()
     {
+        gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
+        scoreText = gameOverUI.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>();
+
         yield return new WaitForSeconds(1f);            //1초 뒤에...
         Time.timeScale = 0;                             //시간 재생 0
         //나중에 바꿀 InputField UI
         //***UI스크립트 바뀌면 여기 바꾸시오***
-        uiUpdate.input.gameObject.SetActive(true);        //InputField 켜기
-        uiUpdate.InputName();                             //이름 입력
+        //uiUpdate.input.gameObject.SetActive(true);        //InputField 켜기
+        //uiUpdate.InputName();                             //이름 입력
+
+        scoreText.text = current_score.ToString();
+        gameOverUI.transform.GetChild(0).gameObject.SetActive(true);
+
+        SaveScore();
     }
 
-    
+
     #region json
-    
+
     public List<RankInfo> rank = new List<RankInfo>();
     private void SaveScore()        //###이름 입력(InputField) 자식 버튼event에 이 메소드 넣기###
     {
         int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;       //파일개수 불러오기
-        if (current_name != string.Empty)
-        {
-            string filename = "Score" + filecount + ".json";                    //파일 이름은 Score번호.json
-            filename = Path.Combine("RankInfoFile/", filename);
-            string toJson = JsonConvert.SerializeObject(new RankInfo(current_score, current_name), Formatting.Indented);        //json 직렬화
 
-            File.WriteAllText(filename, toJson);            //파일 쓰기
-            Debug.Log("Save " + filename);
-            current_name = string.Empty;                   //이름 초기화
-        }
+        string filename = "Score" + filecount + ".json";                    //파일 이름은 Score번호.json
+        filename = Path.Combine("RankInfoFile/", filename);
+        string toJson = JsonConvert.SerializeObject(new RankInfo(current_score), Formatting.Indented);        //json 직렬화
+
+        File.WriteAllText(filename, toJson);            //파일 쓰기
+        Debug.Log("Save " + filename);
+        current_name = string.Empty;                   //이름 초기화
+
         //Time.timeScale = 1f;                                //***이름 다 입력되면 다시 시간 재생인데.. 필요없을 시 빼기***
         //+++타이틀 씬 로드 추가하기+++
 
@@ -127,7 +157,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"test[{i}].Score = " + rank[i].Score);
         }
 
-        RankInfo temp = new RankInfo(0, "");        //임시값
+        RankInfo temp = new RankInfo(0);        //임시값
         for (int i = 0; i < filecount - 1; i++)     //오름차순 정렬
         {
             for (int j = i + 1; j < filecount; j++)
@@ -142,7 +172,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        uiUpdate.UpdateRanking();    //***UI스크립트 바뀌면 여기 바꾸시오***
         DeleteFile();
         Debug.Log("FileCount : " + filecount);
     }
@@ -151,7 +180,7 @@ public class GameManager : MonoBehaviour
     {
         string filename = "Score" + index + ".json";
         filename = Path.Combine("RankInfoFile/", filename);
-        string toJson = JsonConvert.SerializeObject(new RankInfo(rank[index].Score, rank[index].name), Formatting.Indented);
+        string toJson = JsonConvert.SerializeObject(new RankInfo(rank[index].Score), Formatting.Indented);
         File.WriteAllText(filename, toJson);
     }
 
@@ -165,17 +194,15 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-    
+
 }
 [System.Serializable]
 public class RankInfo
 {
     public int Score;
-    public string name;
 
-    public RankInfo(int score, string name)
+    public RankInfo(int score)
     {
         Score = score;
-        this.name = name;
     }
 }

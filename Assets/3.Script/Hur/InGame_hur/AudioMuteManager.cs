@@ -11,18 +11,16 @@ public class AudioMuteManager : MonoBehaviour
     private bool click = true;
     private void Start()
     {
-        bgm = GetComponent<AudioSource>();
-
         //소리가 켜져 있는 게 디폴트
         GameObject.Find("audio_btn").GetComponent<Image>().sprite = sprites[1];
     }
     public void OffSound()
     {
-       bgm.Stop();
+        AudioManager.Instance.StopBGM();
     }
     public void OnSound()
     {
-       bgm.Play();
+        AudioManager.Instance.PlayBGM("Game");
     }
     public void BtnClick()
     {

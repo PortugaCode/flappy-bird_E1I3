@@ -8,6 +8,7 @@ TagManager:
   - Pipe
   - Score
   - ArmorPlayer
+  - GameOverUI
   layers:
   - Default
   - TransparentFX
