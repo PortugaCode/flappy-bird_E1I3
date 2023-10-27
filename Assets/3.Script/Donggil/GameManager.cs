@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
         gameOverUI.transform.GetChild(0).gameObject.SetActive(true);
 
         SaveScore();
+        LoadScore();
     }
 
 
@@ -187,7 +188,7 @@ public class GameManager : MonoBehaviour
     private void DeleteFile()        //파일이 5개 넘을 시 삭제
     {
         int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;       //파일개수 불러오기
-        if (filecount > 5)
+        if (filecount > 4)
         {
             string path = "RankInfoFile/" + "Score5.json";
             File.Delete(path);
