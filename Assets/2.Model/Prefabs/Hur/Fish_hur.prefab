@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 6318901502253769108}
   - component: {fileID: 6318901502253769106}
   m_Layer: 0
-  m_Name: Fish
+  m_Name: Fish_hur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
