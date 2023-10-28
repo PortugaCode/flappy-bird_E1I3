@@ -38,7 +38,7 @@ public class TrailController : MonoBehaviour
             isTrailActive = true;
             StartCoroutine(ActivateTrail(activetime));
         }
-        if(player.IsArmor || player.IsRun && !isTrailActive )
+        if((player.IsArmor || player.IsRun) && !isTrailActive )
         {
             isTrailActive = true;
             StartCoroutine(ActivateTrail(activetime));
