@@ -5,16 +5,20 @@ using UnityEngine.UI;
 
 public class ScoreManager_hur : MonoBehaviour
 {
-    public Text first_txt;
-    public Text second_txt;
-    public Text third_txt;
-   
+    public Text[] Rank_txt;
+    
+
+    private int printCount;
+
     public void ShowRanking()
     {
         Debug.Log(GameManager.instance.rank.Count);
+        printCount = GameManager.instance.rank.Count;
+        if (printCount > 3) printCount = 3;         //printCount는 3등까지만
+        for (int i = 0; i < printCount; i++)
+        {
+            Rank_txt[i].text = GameManager.instance.rank[i].Score.ToString();
+        }
 
-        first_txt.text = GameManager.instance.rank[0].Score.ToString();
-        second_txt.text = GameManager.instance.rank[1].Score.ToString();
-        third_txt.text = GameManager.instance.rank[2].Score.ToString();
     }
 }
