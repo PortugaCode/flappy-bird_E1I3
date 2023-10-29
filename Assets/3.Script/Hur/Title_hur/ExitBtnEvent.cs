@@ -8,7 +8,7 @@ public class ExitBtnEvent : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Editor_Exit()
+/*    public void Editor_Exit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -16,5 +16,5 @@ public class ExitBtnEvent : MonoBehaviour
         Application Quit();
 #endif
 
-    }
+    }*/
 }
