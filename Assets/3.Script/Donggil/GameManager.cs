@@ -128,10 +128,10 @@ public class GameManager : MonoBehaviour
     public List<RankInfo> rank = new List<RankInfo>();
     private void SaveScore()        //###이름 입력(InputField) 자식 버튼event에 이 메소드 넣기###
     {
-        int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;       //파일개수 불러오기
+        int filecount = Directory.GetFiles(Application.streamingAssetsPath, "*.json").Length;       //파일개수 불러오기
 
         string filename = "Score" + filecount + ".json";                    //파일 이름은 Score번호.json
-        filename = Path.Combine("RankInfoFile/", filename);
+        filename = Path.Combine(Application.streamingAssetsPath, filename);
         string toJson = JsonConvert.SerializeObject(new RankInfo(current_score), Formatting.Indented);        //json 직렬화
 
         File.WriteAllText(filename, toJson);            //파일 쓰기
@@ -146,11 +146,11 @@ public class GameManager : MonoBehaviour
     public void LoadScore()         //###랭킹 보기 버튼에 이 메서드 넣기###
     {
         rank.Clear();                                                           //리스트 초기화(전부 삭제)
-        int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;   //파일개수 불러오기
+        int filecount = Directory.GetFiles(Application.streamingAssetsPath, "*.json").Length;   //파일개수 불러오기
         for (int i = 0; i < filecount; i++)                                     //.json 파일개수만큼 불러오기
         {
             string rankFileName = "Score" + i + ".json";
-            rankFileName = Path.Combine("RankInfoFile/", rankFileName);                  //경로
+            rankFileName = Path.Combine(Application.streamingAssetsPath, rankFileName);                  //경로
             string json = File.ReadAllText(rankFileName);
             RankInfo loadscore = JsonConvert.DeserializeObject<RankInfo>(json); //json 역직렬화
             rank.Add(loadscore);                                                //리스트에 RankInfo자료형 넣기
@@ -180,17 +180,17 @@ public class GameManager : MonoBehaviour
     private void OverWrite(int index)        //파일 오름차순으로 덮어쓰는 메소드(json파일 삭제하기 위해)
     {
         string filename = "Score" + index + ".json";
-        filename = Path.Combine("RankInfoFile/", filename);
+        filename = Path.Combine(Application.streamingAssetsPath, filename);
         string toJson = JsonConvert.SerializeObject(new RankInfo(rank[index].Score), Formatting.Indented);
         File.WriteAllText(filename, toJson);
     }
 
     private void DeleteFile()        //파일이 5개 넘을 시 삭제
     {
-        int filecount = Directory.GetFiles("RankInfoFile/", "*.json").Length;       //파일개수 불러오기
+        int filecount = Directory.GetFiles(Application.streamingAssetsPath, "*.json").Length;       //파일개수 불러오기
         if (filecount > 4)
         {
-            string path = "RankInfoFile/" + "Score5.json";
+            string path = Application.streamingAssetsPath + "Score5.json";
             File.Delete(path);
         }
     }
