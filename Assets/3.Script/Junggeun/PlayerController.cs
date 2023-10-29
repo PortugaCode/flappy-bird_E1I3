@@ -146,6 +146,7 @@ public class PlayerController : PlayerMovement_oh
         Debug.Log("데미지 받았다.");
 
         Curhp -= damege;
+        StartCoroutine(hitarmor());
         if(Curhp <= 0 && !isDie)
         {
             isDie = true;
