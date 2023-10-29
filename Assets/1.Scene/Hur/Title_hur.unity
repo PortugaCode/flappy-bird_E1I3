@@ -5033,7 +5033,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1608992333}
         m_TargetAssemblyTypeName: ExitBtnEvent, Assembly-CSharp
-        m_MethodName: Editor_Exit
+        m_MethodName: Exit_game
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5045,7 +5045,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1608992333}
         m_TargetAssemblyTypeName: ExitBtnEvent, Assembly-CSharp
-        m_MethodName: Exit_game
+        m_MethodName: Editor_Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
