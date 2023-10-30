@@ -8,6 +8,8 @@ public class SpawnPlayer : MonoBehaviour
     public GameObject clone;
     
 
+
+    // 캐릭터 선택 창 받아오는 역할
     private void Awake()
     {
         if(CharacterManager.instance.curr_Animal == Animal.bird)

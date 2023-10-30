@@ -28,6 +28,7 @@ public class PlayerController : PlayerMovement_oh
 
     private void Awake()
     {
+        // 원숭이 캐릭터면 피 2 만들어주는 과정
         if(CharacterManager.instance.curr_Animal == Animal.monkey)
         {
             Maxhp = 2;
@@ -43,7 +44,7 @@ public class PlayerController : PlayerMovement_oh
     private void FixedUpdate()
     {
         if (isDie || isRun) return;
-        rig.velocity = new Vector3(horizontal * MoveSpeed * Time.deltaTime, rig.velocity.y, rig.velocity.z);
+        rig.velocity = new Vector3(horizontal * MoveSpeed * Time.deltaTime, rig.velocity.y, rig.velocity.z); //캐릭터 움직임
     }
 
     private void Update()
@@ -71,11 +72,11 @@ public class PlayerController : PlayerMovement_oh
         }
         //-==============================================================
 
-
+        //캐릭터 좌우 위 아래 최대 이동 거리 제한========================
         float x = Mathf.Clamp(transform.position.x, -4.5f, 4.5f);
         float y = Mathf.Clamp(transform.position.y, -5.5f, 5.5f);
         transform.position = new Vector3(x, y, transform.position.z);
-
+        //===============================================================
 
 
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -96,6 +97,7 @@ public class PlayerController : PlayerMovement_oh
 
     }
 
+    //Run Skill 코루틴
     private IEnumerator RunSkill()
     {
         isRun = true;
@@ -113,10 +115,10 @@ public class PlayerController : PlayerMovement_oh
     }
 
 
-
+    // 무적 스킬 코루틴
     private IEnumerator ArmorSkill()
     {
-        isArmor = true;
+        isArmor = true; // isArmor == true일 경우 파이프 무시
         isArmorCoolDown = true;
         rig.velocity = Vector3.zero;
         rig.useGravity = false;
@@ -160,7 +162,7 @@ public class PlayerController : PlayerMovement_oh
     private IEnumerator hitarmor()
     {
         coll.isTrigger = true;
-        gameObject.tag = "ArmorPlayer";
+        gameObject.tag = "ArmorPlayer"; // tag 바꿔서 연속적으로 데미지 입는 거 제한
         yield return new WaitForSeconds(1f);
         coll.isTrigger = false;
         gameObject.tag = "Player";
